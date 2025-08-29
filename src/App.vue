@@ -17,9 +17,26 @@
     </div>
 
     <div class="actions">
-      <button v-for="action in actions" :key="action" @click="performAction(action)">
-        {{ action }}
-      </button>
+      <div class="action-row">
+        <button 
+          v-for="action in topRowActions" 
+          :key="action" 
+          :class="{ selected: selectedAction === action }"
+          @click="performAction(action)"
+        >
+          {{ action }}
+        </button>
+      </div>
+      <div class="action-row">
+        <button 
+          v-for="action in bottomRowActions" 
+          :key="action" 
+          :class="{ selected: selectedAction === action }"
+          @click="performAction(action)"
+        >
+          {{ action }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -33,11 +50,15 @@ const inventory = ref([
   { name: 'Key', icon: '/icons/key.png' },
   { name: 'Note', icon: '/icons/note.png' }
 ]);
-const actions = ['Look', 'Take', 'Use', 'Talk'];
+
+const topRowActions = ['examine', 'use', 'talk', 'take'];
+const bottomRowActions = ['go', 'eat', 'smell', 'hit'];
+const selectedAction = ref('');
 
 function performAction(action) {
+  selectedAction.value = action;
   // Replace with real game logic
-  description.value = `You chose to: ${action}`;
+  description.value = `You selected: ${action}`;
 }
 </script>
 
@@ -92,10 +113,18 @@ function performAction(action) {
 }
 
 .actions {
-  display: flex;
-  justify-content: space-around;
   padding: 0.5rem;
   background: #ccc;
+}
+
+.action-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 0.5rem;
+}
+
+.action-row:last-child {
+  margin-bottom: 0;
 }
 
 .actions button {
@@ -103,5 +132,19 @@ function performAction(action) {
   margin: 0 4px;
   padding: 0.75rem;
   font-size: 1rem;
+  background: #fff;
+  border: 2px solid #999;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actions button:hover {
+  background: #f0f0f0;
+}
+
+.actions button.selected {
+  background: #007bff;
+  color: white;
+  border-color: #0056b3;
 }
 </style>
