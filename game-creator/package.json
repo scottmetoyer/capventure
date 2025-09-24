@@ -1,0 +1,25 @@
+{
+  "name": "capventure-game-creator",
+  "version": "1.0.0",
+  "description": "Web-based game creation tool for CapVenture adventure games",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "typescript": "~5.4.0",
+    "vite": "^5.3.1",
+    "vue-tsc": "^2.0.21"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}
