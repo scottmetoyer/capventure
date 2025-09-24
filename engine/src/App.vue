@@ -1,4 +1,28 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+interface InventoryItem {
+  name: string;
+  icon: string;
+}
+
+const currentImage = ref<string>('/images/start-room.png');
+const description = ref<string>('You are standing in a dimly lit room. There is a door to the north.');
+const inventory = ref<InventoryItem[]>([
+  { name: 'Key', icon: '/icons/key.png' },
+  { name: 'Note', icon: '/icons/note.png' }
+]);
+
+const topRowActions: string[] = ['examine', 'use', 'talk', 'take'];
+const bottomRowActions: string[] = ['go', 'eat', 'smell', 'hit'];
+const selectedAction = ref<string>('');
+
+function performAction(action: string): void {
+  selectedAction.value = action;
+  // Replace with real game logic
+  description.value = `You selected: ${action}`;
+}
+</script>
 
 <template>
   <div class="app">
@@ -18,9 +42,9 @@
 
     <div class="actions">
       <div class="action-row">
-        <button 
-          v-for="action in topRowActions" 
-          :key="action" 
+        <button
+          v-for="action in topRowActions"
+          :key="action"
           :class="{ selected: selectedAction === action }"
           @click="performAction(action)"
         >
@@ -28,9 +52,9 @@
         </button>
       </div>
       <div class="action-row">
-        <button 
-          v-for="action in bottomRowActions" 
-          :key="action" 
+        <button
+          v-for="action in bottomRowActions"
+          :key="action"
           :class="{ selected: selectedAction === action }"
           @click="performAction(action)"
         >
@@ -40,27 +64,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-
-const currentImage = ref('/images/start-room.png');
-const description = ref('You are standing in a dimly lit room. There is a door to the north.');
-const inventory = ref([
-  { name: 'Key', icon: '/icons/key.png' },
-  { name: 'Note', icon: '/icons/note.png' }
-]);
-
-const topRowActions = ['examine', 'use', 'talk', 'take'];
-const bottomRowActions = ['go', 'eat', 'smell', 'hit'];
-const selectedAction = ref('');
-
-function performAction(action) {
-  selectedAction.value = action;
-  // Replace with real game logic
-  description.value = `You selected: ${action}`;
-}
-</script>
 
 <style scoped>
 .app {
